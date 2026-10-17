@@ -1,0 +1,109 @@
+@import 'tailwindcss';
+
+/*
+  Sprout design tokens. Use these through Tailwind classes (bg-coral, text-ink, shadow-sticker...)
+  and never hard-code hex colours in components. See docs/standards/UI_GUIDELINES.md.
+*/
+@theme {
+  --color-cream: #fff8ec;
+  --color-paper: #ffffff;
+  --color-ink: #2b2240;
+  --color-ink-soft: #6b6280;
+  --color-line: #2b2240;
+
+  --color-coral: #ff8a7a;
+  --color-coral-soft: #ffe1dc;
+  --color-coral-deep: #e8604f;
+  --color-mint: #7fd8be;
+  --color-mint-soft: #dcf5ec;
+  --color-mint-deep: #3fae8d;
+  --color-butter: #ffd166;
+  --color-butter-soft: #fff1c9;
+  --color-sky: #8ecbff;
+  --color-sky-soft: #e0f0ff;
+  --color-lilac: #c9b6ff;
+  --color-lilac-soft: #efe8ff;
+
+  --color-success: #3fae8d;
+  --color-warning: #f4a51c;
+  --color-danger: #e8604f;
+
+  --font-display: var(--font-fredoka), ui-rounded, system-ui, sans-serif;
+  --font-sans: var(--font-nunito), ui-rounded, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', Menlo, monospace;
+
+  --radius-blob: 1.25rem;
+  --radius-pill: 999px;
+
+  /* "Sticker" look: solid offset shadow instead of soft blur */
+  --shadow-sticker: 3px 3px 0 0 var(--color-line);
+  --shadow-sticker-sm: 2px 2px 0 0 var(--color-line);
+  --shadow-sticker-lg: 5px 5px 0 0 var(--color-line);
+
+  --animate-pop: pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-wiggle: wiggle 0.6s ease-in-out;
+  --animate-float: float 3s ease-in-out infinite;
+
+  @keyframes pop {
+    0% { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-6deg); }
+    75% { transform: rotate(6deg); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+}
+
+@layer base {
+  html {
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-cream);
+    /* subtle dotted paper texture */
+    background-image: radial-gradient(color-mix(in srgb, var(--color-ink) 9%, transparent) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-sky);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Markdown lesson content */
+@layer components {
+  .prose-sprout { line-height: 1.7; font-size: 1.02rem; }
+  .prose-sprout > * + * { margin-top: 0.85em; }
+  .prose-sprout h1 { font-size: 1.6rem; font-weight: 700; }
+  .prose-sprout h2 { font-size: 1.3rem; font-weight: 700; margin-top: 1.4em; }
+  .prose-sprout h3 { font-size: 1.1rem; font-weight: 700; margin-top: 1.2em; }
+  .prose-sprout ul { list-style: disc; padding-left: 1.4em; }
+  .prose-sprout ol { list-style: decimal; padding-left: 1.4em; }
+  .prose-sprout li + li { margin-top: 0.3em; }
+  .prose-sprout a { color: var(--color-coral-deep); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-sprout strong { font-weight: 800; }
+  .prose-sprout code { font-family: var(--font-mono); font-size: 0.9em; background: var(--color-butter-soft); padding: 0.1em 0.35em; border-radius: 0.4em; }
+  .prose-sprout pre { background: var(--color-ink); color: var(--color-cream); padding: 1em; border-radius: 0.9rem; overflow-x: auto; }
+  .prose-sprout pre code { background: transparent; padding: 0; color: inherit; }
+  .prose-sprout blockquote { border-left: 4px solid var(--color-mint); background: var(--color-mint-soft); padding: 0.6em 1em; border-radius: 0 0.9rem 0.9rem 0; }
+  .prose-sprout table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
+  .prose-sprout th, .prose-sprout td { border: 2px solid var(--color-line); padding: 0.4em 0.6em; text-align: left; }
+  .prose-sprout th { background: var(--color-sky-soft); }
+}
